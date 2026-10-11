@@ -1,0 +1,290 @@
+/* ============================================================
+   style.css — Nutrition Food Explorer Dashboard
+   Custom styles to complement Tailwind CSS
+   ============================================================ */
+
+/* ── Base & Typography ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Stat Cards hover lift ── */
+.stat-card {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.stat-card:hover {
+  box-shadow: 0 4px 16px rgba(78, 125, 76, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ── Table rows ── */
+#tableBody tr {
+  transition: background-color 0.15s;
+}
+#tableBody tr:hover {
+  background-color: #f4f7f4; /* sage-50 */
+}
+
+/* Selected for comparison row highlight */
+#tableBody tr.row-selected {
+  background-color: #e6ede6; /* sage-100 */
+}
+
+/* ── Sort icons ── */
+.sortable-th {
+  user-select: none;
+  white-space: nowrap;
+}
+.sortable-th:hover .sort-icon {
+  color: #4e7d4c; /* sage-500 */
+}
+.sortable-th.sort-asc .sort-icon::after {
+  content: " ↑";
+  color: #3c623a;
+}
+.sortable-th.sort-desc .sort-icon::after {
+  content: " ↓";
+  color: #3c623a;
+}
+/* Hide the default ↕ when a direction is active */
+.sortable-th.sort-asc .sort-icon,
+.sortable-th.sort-desc .sort-icon {
+  font-size: 0; /* hide ↕ */
+}
+.sortable-th.sort-asc .sort-icon::after,
+.sortable-th.sort-desc .sort-icon::after {
+  font-size: 0.875rem;
+}
+
+/* ── Pagination ── */
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #57606a;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.page-btn:hover:not(:disabled) {
+  background-color: #e6ede6;
+  color: #3c623a;
+  border-color: #a0be9f;
+}
+.page-btn.active {
+  background-color: #4e7d4c;
+  color: #fff;
+  border-color: #4e7d4c;
+  font-weight: 600;
+}
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Modal overlay & content ── */
+.modal-overlay {
+  animation: fadeIn 0.2s ease;
+}
+.modal-content {
+  animation: slideUp 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-overlay.hidden {
+  display: none !important;
+}
+
+/* ── Nutrient progress bars ── */
+.nutrient-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.nutrient-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #57606a;
+}
+.nutrient-bar-track {
+  height: 8px;
+  border-radius: 9999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+.nutrient-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+/* Color palette for nutrient bars */
+.bar-energy  { background-color: #f59e0b; }
+.bar-protein { background-color: #3b82f6; }
+.bar-carb    { background-color: #8b5cf6; }
+.bar-fat     { background-color: #ef4444; }
+.bar-sugar   { background-color: #ec4899; }
+.bar-sodium  { background-color: #f97316; }
+.bar-fiber   { background-color: #22c55e; }
+
+/* ── DV percentage cards in modal ── */
+.dv-card {
+  background: #f7f8fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+}
+.dv-card .dv-pct {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #4e7d4c;
+}
+.dv-card .dv-label {
+  font-size: 0.65rem;
+  color: #57606a;
+  margin-top: 2px;
+  line-height: 1.3;
+}
+
+/* ── Compare table ── */
+#compareTable thead th {
+  background-color: #f4f7f4;
+  padding: 10px 14px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #57606a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+#compareTable tbody td {
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #1f2328;
+}
+#compareTable tbody tr:first-child td {
+  font-weight: 600;
+}
+#compareTable tbody td:first-child {
+  font-size: 0.75rem;
+  color: #57606a;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: #f9fafb;
+  white-space: nowrap;
+}
+
+/* ── Compare selected badges ── */
+.compare-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f4f7f4;
+  border: 1px solid #c8d9c8;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+}
+.compare-badge button {
+  color: #ef4444;
+  font-size: 0.75rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.15s;
+}
+.compare-badge button:hover {
+  background-color: #fee2e2;
+}
+
+/* ── Checkbox custom style ── */
+input[type="checkbox"].compare-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #4e7d4c;
+  cursor: pointer;
+}
+
+/* ── Detail button ── */
+.btn-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background-color: #f4f7f4;
+  border: 1px solid #c8d9c8;
+  color: #3c623a;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  white-space: nowrap;
+}
+.btn-detail:hover {
+  background-color: #c8d9c8;
+}
+
+/* ── Loading skeleton pulse ── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to   { background-position: -200% 0; }
+}
+
+/* ── Error banner ── */
+.error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 14px 18px;
+  color: #991b1b;
+  font-size: 0.85rem;
+}
+
+/* ── Scrollbar (webkit) for modal ── */
+.modal-content::-webkit-scrollbar { width: 5px; }
+.modal-content::-webkit-scrollbar-track { background: transparent; }
+.modal-content::-webkit-scrollbar-thumb {
+  background: #c8d9c8;
+  border-radius: 99px;
+}
+
+/* ── Responsive tweaks ── */
+@media (max-width: 640px) {
+  #foodTable thead th:nth-child(n+7) {
+    display: none;
+  }
+  #foodTable tbody td:nth-child(n+7) {
+    display: none;
+  }
+}
